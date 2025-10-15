@@ -1,0 +1,42 @@
+// LayoutWrapper.module.scss
+
+// Imports
+@use "../../../styles/variables.scss" as *;
+
+// Layout wrapper
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Fixed height */
+  width: 100%;
+  position: relative;
+  overflow: hidden; /* Prevent wrapper scroll */
+}
+
+// Ensure proper stacking and layout
+.wrapper {
+  // Smooth transitions for any dynamic changes
+  transition: all 0.2s ease;
+
+  // Ensure consistent box-sizing
+  box-sizing: border-box;
+
+  // Handle potential overflow issues
+  overflow-x: hidden;
+}
+
+// Mobile optimization
+@media (max-width: 768px) {
+  .wrapper {
+    min-height: 100vh;
+    min-height: -webkit-fill-available; // iOS Safari fix
+  }
+}
+
+// Print styles
+@media print {
+  .wrapper {
+    min-height: auto;
+    display: block;
+  }
+}

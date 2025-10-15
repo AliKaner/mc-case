@@ -1,0 +1,46 @@
+// FormItemWrapper.module.scss
+
+// Imports
+@use "../../../../styles/variables.scss" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary, #333);
+  font-size: 0.875rem;
+}
+
+.requiredMark {
+  color: var(--color-danger, #dc3545);
+  margin-left: 0.25rem;
+}
+
+.errorMessage {
+  color: var(--color-danger, #dc3545);
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: -1.25rem;
+  left: 0;
+  margin: 0;
+}
+
+.helpText {
+  color: var(--color-text-secondary, #666);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.error {
+  // Error state styles applied to container
+}
+
+.required {
+  // Required state styles applied to container
+}

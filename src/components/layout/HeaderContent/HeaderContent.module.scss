@@ -1,0 +1,86 @@
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 60px; // Fixed minimum height to prevent vertical shifting
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  width: 180px;
+  height: 60px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; // Prevent button container from shrinking
+  min-width: 160px; // Fixed minimum width to accommodate both button texts
+  justify-content: flex-end; // Align button to the right
+}
+
+@media (max-width: 768px) {
+  .headerContent {
+    flex-direction: row; // Keep logo and button side by side on mobile
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .buttonContainer {
+    width: auto; // Don't take full width on mobile
+    justify-content: flex-end;
+    min-width: auto;
+  }
+
+  .headerButton {
+    text-indent: -9999px; // Hide original text
+    overflow: hidden;
+    position: relative;
+
+    // Show only + or ← symbol
+    &::before {
+      content: "+";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-indent: 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    // For + button (add user) - make it square and bigger
+    &[aria-label="Yeni Kullanıcı Ekle"] {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      padding: 0;
+      border-radius: 8px;
+
+      &::before {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+
+    // For back button (when on create page) - keep rectangular
+    &[aria-label="Ana Sayfaya Dön"] {
+      min-width: 40px;
+      padding: 8px 12px;
+
+      &::before {
+        content: "←";
+        font-size: 18px;
+      }
+    }
+  }
+}

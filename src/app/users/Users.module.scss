@@ -1,0 +1,56 @@
+// Users.module.scss
+@import "../../styles/variables.scss";
+
+.controlsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.searchContainer {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filtersContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+// Mobile responsive styles
+@media (max-width: 768px) {
+  .controlsContainer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    // Remove bottom margins from all child elements in mobile
+    * {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .searchContainer {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .filtersContainer {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+// Extra small screens
+@media (max-width: 480px) {
+  .filtersContainer {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

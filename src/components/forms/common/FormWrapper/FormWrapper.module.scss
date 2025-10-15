@@ -1,0 +1,46 @@
+// FormWrapper.module.scss
+
+// Imports
+@use "../../../../styles/variables.scss" as *;
+
+// Form wrapper
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-base;
+  padding: $spacing-base;
+  background: var(--color-background-secondary, #fff);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: var(--color-text-primary, #333);
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--color-text-secondary, #666);
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+}

@@ -1,0 +1,71 @@
+@import "../../../styles/variables.scss";
+
+.body {
+  background-color: $color-primary-100;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Allow flex item to shrink */
+  overflow-y: auto; /* Only body content scrolls */
+  padding: 0;
+  padding-top: calc(
+    2rem + 92px
+  ); // 2rem base padding + header height (60px + 2rem padding)
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem; /* Add vertical padding to content */
+    width: 100%;
+    flex: 1; /* Take remaining space, pushing footer to bottom */
+  }
+}
+
+// Primary variant styles
+.body {
+  background: linear-gradient(180deg, $color-primary-100, $color-primary-200);
+  color: $color-primary-800;
+
+  // Add some subtle texture
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(
+        circle at 25% 25%,
+        $color-primary-200 1px,
+        transparent 1px
+      ),
+      radial-gradient(
+        circle at 75% 75%,
+        $color-primary-200 1px,
+        transparent 1px
+      );
+    background-size: 50px 50px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .body {
+    padding: 0;
+    padding-top: calc(
+      1rem + 92px
+    ); // 1rem base padding + header height for mobile
+
+    .container {
+      padding: 1rem 0.5rem; /* Add vertical padding for mobile */
+    }
+  }
+}

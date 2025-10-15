@@ -1,0 +1,47 @@
+// NewUserForm Styles
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.editModeButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.submitButton {
+  width: 100%;
+}
+
+.editButton {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .buttonContainer {
+    gap: 0.75rem;
+  }
+
+  .editModeButtons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,93 @@
+// Button module styles
+
+// Imports
+@import "../../../styles/variables.scss";
+
+// Button container
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Variants
+.primary {
+  background-color: $color-primary-600;
+  color: white;
+  border: 2px solid $color-primary-700;
+
+  &:hover:not(:disabled) {
+    background-color: $color-primary-700;
+    border-color: $color-primary-800;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $color-primary-800;
+    border-color: $color-primary-900;
+    transform: translateY(1px);
+  }
+}
+
+.secondary {
+  background-color: $color-secondary-600;
+  color: white;
+  border: 2px solid $color-secondary-700;
+
+  &:hover:not(:disabled) {
+    background-color: $color-secondary-700;
+    border-color: $color-secondary-800;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $color-secondary-800;
+    border-color: $color-secondary-900;
+    transform: translateY(1px);
+  }
+}
+
+.danger {
+  background-color: #dc3545;
+  color: white;
+  border: 2px solid #c82333;
+
+  &:hover:not(:disabled) {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+
+  &:active:not(:disabled) {
+    background-color: #bd2130;
+    border-color: #b21f2d;
+    transform: translateY(1px);
+  }
+}
+
+// Sizes
+.sm {
+  padding: $button-size-sm;
+  font-size: $font-size-sm;
+  border-radius: $border-radius-sm;
+}
+
+.base {
+  padding: $button-size-base;
+  font-size: $font-size-base;
+  border-radius: $border-radius-base;
+}
+
+.lg {
+  padding: $button-size-lg;
+  font-size: $font-size-lg;
+  border-radius: $border-radius-lg;
+}

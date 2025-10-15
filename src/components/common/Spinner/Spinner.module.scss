@@ -1,0 +1,30 @@
+// Spinner module styles
+// Imports
+@use "../../../styles/variables.scss" as *;
+
+// Spinner container
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Spinner
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid $color-primary;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// Spin animation
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

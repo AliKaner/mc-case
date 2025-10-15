@@ -1,0 +1,53 @@
+@import "../../../styles/variables.scss";
+
+.footer {
+  background-color: $color-secondary;
+  color: white;
+  padding: 2rem 0 1rem;
+  margin-top: auto; /* Push footer to bottom */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+// Secondary variant styles
+.footer {
+  background: linear-gradient(
+    135deg,
+    $color-secondary-700,
+    $color-secondary-800
+  );
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+    opacity: 0.9;
+  }
+
+  a {
+    color: $color-secondary-200;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    .container {
+      padding: 0 0.5rem;
+    }
+  }
+}
