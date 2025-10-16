@@ -7,6 +7,25 @@ import Button from "../Button";
 import styles from "./Modal.module.scss";
 
 // Modal Component
+/**
+ *
+ * @param {Object} props
+ * @param {boolean} props.isOpen
+ * @param {function} props.onClose
+ * @param {React.ReactNode} props.children
+ * @param {string} props.title
+ * @param {boolean} props.showCloseButton
+ * @param {boolean} props.overlayClosable
+ * @param {string} props.className
+ * @param {string} props.variant
+ * @param {Array} props.buttons
+ * @param {boolean} props.showDefaultButtons
+ * @returns
+ * @example
+ * <Modal isOpen={true} onClose={() => console.log("Modal closed")} title="Modal Title" showCloseButton={true} overlayClosable={true} className="modal-class" variant="base" buttons={[]} showDefaultButtons={false} />
+ *   <div>Modal Content</div>
+ * </Modal>
+ */
 export const Modal = (props) => {
   // Props
   const {
@@ -17,7 +36,7 @@ export const Modal = (props) => {
     showCloseButton = true,
     overlayClosable = true,
     className = "",
-    variant = "base", 
+    variant = "base",
     buttons = [],
     showDefaultButtons = false,
   } = props;

@@ -14,7 +14,18 @@ import { useToastContext } from "../../providers/ToastProvider";
 import styles from "./UserTable.module.scss";
 
 // UserTable Component
-export const UserTable = ({ users, onUserDeleted }) => {
+/**
+ *
+ * @param {Object} props
+ * @param {Array} props.users
+ * @param {function} props.onUserDeleted
+ * @returns
+ * @example
+ * <UserTable users={users} onUserDeleted={() => console.log("User deleted")} />
+ */
+export const UserTable = (props) => {
+  // Props
+  const { users, onUserDeleted } = props;
   // Hooks
   const router = useRouter();
 
@@ -67,7 +78,7 @@ const UserTableRow = ({ user, onUserDeleted, onRowClick, onDetailClick }) => {
   const deleteModal = useModal();
   const { addToast } = useToastContext();
 
-    // Delete user mutation
+  // Delete user mutation
   const deleteUserMutation = useMutation({
     mutationFn: userMutations.deleteUser,
     onSuccess: () => {

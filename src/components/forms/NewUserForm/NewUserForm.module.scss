@@ -38,6 +38,10 @@
     flex-direction: column;
     gap: 0.75rem;
   }
+
+  .editButton {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {

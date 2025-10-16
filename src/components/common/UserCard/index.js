@@ -14,6 +14,15 @@ import { useToastContext } from "../../providers/ToastProvider";
 import styles from "./UserCard.module.scss";
 
 // UserCard Component
+/**
+ *
+ * @param {Object} props
+ * @param {Object} props.user
+ * @param {function} props.onUserDeleted
+ * @returns
+ * @example
+ * <UserCard user={user} onUserDeleted={() => console.log("User deleted")} />
+ */
 export const UserCard = (props) => {
   // Props
   const { user, onUserDeleted } = props;

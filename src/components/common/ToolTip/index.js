@@ -4,7 +4,7 @@ import cn from "classnames";
 import { getTooltipPosition } from "../../../utils/tooltipPosition";
 import styles from "./ToolTip.module.scss";
 
-const QuestionIcon = ({ className }) => (
+const QuestionIcon = () => (
   <span className={cn(styles.tooltipIcon, className)}>
     <svg
       width="14"
@@ -53,7 +53,6 @@ export const ToolTip = ({
   const tooltipRef = useRef(null);
   const timeoutRef = useRef(null);
 
-  // Calculate position when tooltip becomes visible
   useEffect(() => {
     if (
       isVisible &&
@@ -124,7 +123,6 @@ export const ToolTip = ({
     }
   };
 
-  // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -171,8 +169,22 @@ export const ToolTip = ({
   );
 };
 
-// Backward compatibility component
-export const TooltipIcon = ({ content, className, testId }) => {
+/**
+ *
+ * @param {Object} props
+ * @param {string} props.content
+ * @param {string} props.className
+ * @param {string} props.testId
+ * @returns
+ * @example
+ * <TooltipIcon content="Tooltip content" className="tooltip-icon-class" testId="tooltip-icon-test-id" />
+ */
+export const TooltipIcon = (props) => {
+  const { content, className, testId } = props;
+  // States
+  // Hooks
+  // Effects
+  // Other functions
   if (!content) return null;
 
   return (

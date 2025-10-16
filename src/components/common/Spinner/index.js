@@ -5,6 +5,17 @@ import cn from "classnames";
 import styles from "./Spinner.module.scss";
 
 // Spinner Component
+/**
+ *
+ * @param {Object} props
+ * @param {string} props.className
+ * @param {string} props.size
+ * @returns
+ * @example
+ * <Spinner className="spinner-class" size="base" />
+ *   <div className={styles.spinner}></div>
+ * </Spinner>
+ */
 export const Spinner = (props) => {
   // Props
   const {
@@ -29,7 +40,6 @@ export const Spinner = (props) => {
     }
   };
 
-  // Custom styles for color override
   // Render
   return (
     <div className={cn(styles.container, className)} {...rest}>

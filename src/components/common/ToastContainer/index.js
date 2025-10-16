@@ -6,7 +6,17 @@ import Toast from "../Toast";
 import styles from "./ToastContainer.module.scss";
 
 // Component: ToastContainer
-const ToastContainer = ({ toasts, onRemove }) => {
+/**
+ *
+ * @param {Object} props
+ * @param {Array} props.toasts
+ * @param {function} props.onRemove
+ * @returns
+ * @example
+ * <ToastContainer toasts={[]} onRemove={() => console.log("Toast removed")} />
+ */
+const ToastContainer = (props) => {
+  const { toasts, onRemove } = props;
   // States
   // Hooks
   // Effects

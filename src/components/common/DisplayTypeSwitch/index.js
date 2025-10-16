@@ -6,7 +6,18 @@ import styles from "./DisplayTypeSwitch.module.scss";
 import cn from "classnames";
 
 // DisplayTypeSwitch Component
-export const DisplayTypeSwitch = ({ value, onChange, testId }) => {
+/**
+ *
+ * @param {Object} props
+ * @param {string} props.value
+ * @param {function} props.onChange
+ * @param {string} props.testId
+ * @returns
+ * @example
+ * <DisplayTypeSwitch value="card" onChange={() => console.log("Display type changed")} testId="display-type-switch" />
+ */
+export const DisplayTypeSwitch = (props) => {
+  const { value, onChange, testId } = props;
   // Props
   // States
   // Hooks

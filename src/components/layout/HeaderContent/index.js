@@ -5,6 +5,7 @@
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { Button } from "../../common/Button";
+import { useIsMobile } from "../../../hooks/useWindowSize";
 import ROUTES from "../../../constants/routes";
 import styles from "./HeaderContent.module.scss";
 
@@ -16,6 +17,7 @@ export const HeaderContent = (props) => {
   // Hooks
   const router = useRouter();
   const pathname = usePathname();
+  const isMobile = useIsMobile();
   // Effects
   // Other functions
 
@@ -38,6 +40,14 @@ export const HeaderContent = (props) => {
     ? "Ana Sayfaya Dön"
     : "Yeni Kullanıcı Ekle";
 
+  // Conditional rendering based on screen size
+  const getButtonContent = () => {
+    if (isMobile) {
+      return isOnNewPage ? "←" : "+";
+    }
+    return buttonText;
+  };
+
   // Render
   return (
     <div className={styles.headerContent}>
@@ -59,13 +69,15 @@ export const HeaderContent = (props) => {
       </div>
       <div className={styles.buttonContainer}>
         <Button
-          text={buttonText}
+          text={getButtonContent()}
           onClick={handleButtonClick}
           variant="secondary"
           size="sm"
           testId="header-action-button"
           ariaLabel={buttonAriaLabel}
-          className={styles.headerButton}
+          className={`${styles.headerButton} ${
+            isMobile ? styles.mobileButton : ""
+          }`}
         />
       </div>
     </div>

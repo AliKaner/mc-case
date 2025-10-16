@@ -5,11 +5,24 @@ import styles from "./Pagination.module.scss";
 import { Button } from "../Button";
 
 // Pagination Component
+/**
+ *
+ * @param {Object} props
+ * @param {number} props.page
+ * @param {number} props.totalPages
+ * @param {number} props.totalItems
+ * @param {function} props.onPageChange
+ * @returns
+ * @example
+ * <Pagination page={1} totalPages={10} totalItems={100} onPageChange={() => console.log("Page changed")} />
+ */
 export const Pagination = (props) => {
   // Props
   const { page, totalPages, totalItems, onPageChange } = props;
-
-  // Don't render pagination if there's only 1 page or no pages
+  // States
+  // Hooks
+  // Effects
+  // Other functions
   if (totalPages <= 1) {
     return <div className={styles.itemCount}>{totalItems} öğe bulundu</div>;
   }

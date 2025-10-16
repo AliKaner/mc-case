@@ -115,6 +115,8 @@
     opacity: 1;
     visibility: visible;
     gap: 0.375rem;
+    flex-direction: column;
+    width: 100%;
   }
 }
 
@@ -128,5 +130,11 @@
 
   &:hover {
     transform: none;
+  }
+
+  // Make buttons full width on mobile
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
   }
 }

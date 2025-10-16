@@ -6,8 +6,22 @@ import cn from "classnames";
 import { Spinner } from "../Spinner";
 
 // Button Component
+/**
+ *
+ * @param {Object} props
+ * @param {string} props.text
+ * @param {function} props.onClick
+ * @param {boolean} props.disabled
+ * @param {boolean} props.loading
+ * @param {string} props.variant
+ * @param {string} props.size
+ * @param {string} props.testId
+ * @param {string} props.ariaLabel
+ * @returns
+ * @example
+ * <Button text="Click me" onClick={() => console.log("Button clicked")} />
+ */
 export const Button = (props) => {
-  // Props
   const {
     text,
     onClick,

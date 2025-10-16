@@ -278,3 +278,11 @@
 .dropdown::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
+
+// Mobile responsive styles
+@media (max-width: 30rem) {
+  .container {
+    width: 100% !important;
+    flex: none !important;
+  }
+}

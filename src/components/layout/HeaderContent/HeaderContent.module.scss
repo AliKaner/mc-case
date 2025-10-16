@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  min-height: 3.75rem; 
+  min-height: 3.75rem;
 }
 
 .logoContainer {
@@ -25,62 +25,36 @@
 .buttonContainer {
   display: flex;
   align-items: center;
-  flex-shrink: 0; 
-  min-width: 10rem; 
-  justify-content: flex-end; 
+  flex-shrink: 0;
+  min-width: 10rem;
+  justify-content: flex-end;
 }
 
 @media (max-width: 48rem) {
   .headerContent {
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: space-between;
     gap: 1rem;
   }
 
   .buttonContainer {
-    width: auto; 
+    width: auto;
     justify-content: flex-end;
     min-width: auto;
   }
 
   .headerButton {
-    text-indent: -624.9375rem; 
-    overflow: hidden;
-    position: relative;
-
-    &::before {
-      content: "+";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      text-indent: 0;
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
-
-    
-    &[aria-label="Yeni Kullanıcı Ekle"] {
+    &.mobileButton {
       width: 2.75rem;
       height: 2.75rem;
       min-width: 2.75rem;
       padding: 0;
-      border-radius: .5rem;
-
-      &::before {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
-    }
-
-    &[aria-label="Ana Sayfaya Dön"] {
-      min-width: 2.5rem;
-      padding: .5rem .75rem;
-
-      &::before {
-        content: "←";
-        font-size: 1.125rem;
-      }
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
     }
   }
 }

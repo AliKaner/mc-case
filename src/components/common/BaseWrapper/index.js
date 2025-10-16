@@ -4,17 +4,35 @@
 import styles from "./BaseWrapper.module.scss";
 
 // BaseWrapper component
-const BaseWrapper = ({
-  children,
-  className = "",
-  direction = "row",
-  justify = "flex-start",
-  align = "center",
-  gap = "16px",
-  wrap = "nowrap",
-  style = {},
-  ...props
-}) => {
+/**
+ *
+ * @param {Object} props
+ * @param {React.ReactNode} props.children
+ * @param {string} props.className
+ * @param {string} props.direction
+ * @param {string} props.justify
+ * @param {string} props.align
+ * @param {string} props.gap
+ * @param {string} props.wrap
+ * @param {Object} props.style
+ * @returns
+ * @example
+ * <BaseWrapper>
+ *   <div>Child 1</div>
+ *   <div>Child 2</div>
+ * </BaseWrapper>
+ */
+const BaseWrapper = (props) => {
+  const {
+    children,
+    className = "",
+    direction = "row",
+    justify = "flex-start",
+    align = "center",
+    gap = "16px",
+    wrap = "nowrap",
+    style = {},
+  } = props;
   //States
   //Effects
   //Hooks

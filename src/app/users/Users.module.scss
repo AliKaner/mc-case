@@ -50,5 +50,11 @@
   .filtersContainer {
     flex-direction: column;
     gap: 0.5rem;
+
+    // Make all selects full width on smallest mobile
+    > * {
+      width: 100% !important;
+      flex: none;
+    }
   }
 }

@@ -6,13 +6,20 @@ import styles from "./Toast.module.scss";
 import cn from "classnames";
 
 // Component: Toast
-const Toast = ({
-  id,
-  message,
-  type = "success",
-  duration = 3000,
-  onRemove,
-}) => {
+/**
+ *
+ * @param {Object} props
+ * @param {string} props.id
+ * @param {string} props.message
+ * @param {string} props.type
+ * @param {number} props.duration
+ * @param {function} props.onRemove
+ * @returns
+ * @example
+ * <Toast id="1" message="Toast message" type="success" duration={3000} onRemove={() => console.log("Toast removed")} />
+ */
+const Toast = (props) => {
+  const { id, message, type = "success", duration = 3000, onRemove } = props;
   // States
   const [isVisible, setIsVisible] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);

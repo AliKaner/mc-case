@@ -50,7 +50,7 @@ export const metadata = {
     siteName: "Minticity Case",
     images: [
       {
-        url: "/logo.webp",
+        url: "https://mc-case-um1l.vercel.app/logo.webp",
         width: 1200,
         height: 630,
         alt: "Minticity Case Logo",
@@ -66,7 +66,7 @@ export const metadata = {
     title: "Minticity Case - User Management System",
     description:
       "Modern user management system built with Next.js - Minticity Case by Ali Kaner",
-    images: ["/logo.webp"],
+    images: ["https://mc-case-um1l.vercel.app/logo.webp"],
   },
 
   robots: {
