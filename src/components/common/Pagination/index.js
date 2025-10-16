@@ -2,6 +2,7 @@
 
 // Imports
 import styles from "./Pagination.module.scss";
+import { Button } from "../Button";
 
 // Pagination Component
 export const Pagination = (props) => {
@@ -16,26 +17,24 @@ export const Pagination = (props) => {
   // Render
   return (
     <div className={styles.container}>
-      <button
-        className={styles.button}
+      <Button
+        text="Önceki"
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-      >
-        Önceki
-      </button>
+        className={styles.button}
+      />
       <span className={styles.pageInfo}>
         {page} / {totalPages}
       </span>
-      <button
-        className={styles.button}
+      <Button
+        text="Sonraki"
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-      >
-        Sonraki
-      </button>
+        className={styles.button}
+      />
     </div>
   );
 };
 
-// Default export
+// Export
 export default Pagination;

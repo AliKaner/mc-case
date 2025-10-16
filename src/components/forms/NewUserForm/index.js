@@ -1,261 +1,164 @@
-// Component: NewUserForm
-
-// Imports
 "use client";
-import React, { useEffect, useState, useId } from "react";
+import React, { useMemo, useId } from "react";
 import { useFormik } from "formik";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import FormWrapper from "../common/FormWrapper";
 import Input from "../common/Input";
 import Button from "../../common/Button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToastContext } from "../../providers/ToastProvider";
 import { userMutations } from "@/services/users";
 import {
   validationSchema,
-  createUserObject,
   initialFormValues,
+  createUserObject,
 } from "./schema";
 import { UserDeleteModal } from "../../modals/UserDeleteModal";
 import { useModal } from "../../../hooks/useModal";
 import ROUTES from "../../../constants/routes";
 import styles from "./NewUserForm.module.scss";
 
-// Generate random ID
-const generateRandomId = () => {
-  return Math.floor(Math.random() * 10000) + 1;
+const pickUserFromParams = (sp) => {
+  if (!sp) return null;
+  const id = sp.get("id");
+  const name = sp.get("name");
+  const username = sp.get("username");
+  const email = sp.get("email");
+  const phone = sp.get("phone");
+  const companyName = sp.get("companyName");
+
+  if (id && name && username && email && phone && companyName) {
+    return {
+      id: String(id),
+      name,
+      username,
+      email,
+      phone,
+      companyName,
+    };
+  }
+  return null;
 };
 
-// NewUserForm Component
+const toUpdatePayload = (vals) => ({
+  name: vals.name,
+  username: vals.username,
+  email: vals.email,
+  phone: vals.phone,
+  company: { name: vals.companyName },
+});
+
 export const NewUserForm = ({ initialData = null }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { showSuccess, showDanger } = useToastContext();
   const queryClient = useQueryClient();
+  const deleteModal = useModal();
+  const newUserId = useId();
 
-  // Create user mutation
+  // Prefer initialData → else parse from URL → else null
+  const seededValues = useMemo(() => {
+    if (initialData) {
+      return {
+        id: initialData.id ? String(initialData.id) : "",
+        name: initialData.name ?? "",
+        username: initialData.username ?? "",
+        email: initialData.email ?? "",
+        phone: initialData.phone ?? "",
+        companyName: initialData.company?.name ?? "",
+      };
+    }
+    const fromParams = pickUserFromParams(searchParams);
+    return fromParams ?? initialFormValues;
+  }, [initialData, searchParams?.toString()]);
+
+  const userId = seededValues?.id
+    ? isNaN(Number(seededValues.id))
+      ? seededValues.id
+      : Number(seededValues.id)
+    : null;
+  const isEditMode = Boolean(userId);
+
+  const handleCommonSuccess = (msg) => {
+    showSuccess(msg);
+    queryClient.invalidateQueries({ queryKey: ["users"] });
+    router.push(ROUTES.USERS.GET_USERS);
+  };
+
+  const handleCommonError = (error, fallback) => {
+    const message =
+      error?.response?.data?.message ||
+      error?.message ||
+      fallback ||
+      "Bir hata oluştu. Lütfen tekrar deneyin.";
+    showDanger(message);
+  };
+
   const createUserMutation = useMutation({
     mutationFn: userMutations.createUser,
-    onSuccess: () => {
-      showSuccess("Kullanıcı başarıyla oluşturuldu!");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      // Redirect to users list page after successful creation
-      router.push(ROUTES.USERS.GET_USERS);
-    },
-    onError: (error) => {
-      showDanger(
-        error.message || "Kullanıcı oluşturulamadı. Lütfen tekrar deneyin."
-      );
-    },
+    onSuccess: () => handleCommonSuccess("Kullanıcı başarıyla oluşturuldu!"),
+    onError: (e) =>
+      handleCommonError(e, "Kullanıcı oluşturulamadı. Lütfen tekrar deneyin."),
   });
 
-  // Update user mutation
   const updateUserMutation = useMutation({
     mutationFn: userMutations.updateUser,
-    onSuccess: () => {
-      showSuccess("Kullanıcı başarıyla güncellendi!");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      // Redirect to users list page after successful update
-      router.push(ROUTES.USERS.GET_USERS);
-    },
-    onError: (error) => {
-      showDanger(
-        error.message || "Kullanıcı güncellenemedi. Lütfen tekrar deneyin."
-      );
-    },
+    onSuccess: () => handleCommonSuccess("Kullanıcı başarıyla güncellendi!"),
+    onError: (e) =>
+      handleCommonError(e, "Kullanıcı güncellenemedi. Lütfen tekrar deneyin."),
   });
 
-  // Delete user mutation
   const deleteUserMutation = useMutation({
     mutationFn: userMutations.deleteUser,
-    onSuccess: () => {
-      showSuccess("Kullanıcı başarıyla silindi!");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      // Redirect to users list page
-      router.push(ROUTES.USERS.GET_USERS);
-    },
-    onError: (error) => {
-      showDanger(
-        error.message || "Kullanıcı silinemedi. Lütfen tekrar deneyin."
-      );
-    },
+    onSuccess: () => handleCommonSuccess("Kullanıcı başarıyla silindi!"),
+    onError: (e) =>
+      handleCommonError(e, "Kullanıcı silinemedi. Lütfen tekrar deneyin."),
   });
 
-  // Generate unique IDs for form fields
-  const nameId = useId();
-  const usernameId = useId();
-  const emailId = useId();
-  const phoneId = useId();
-  const companyNameId = useId();
-
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [originalData, setOriginalData] = useState(null);
-  const [userId, setUserId] = useState(null);
-
-  // Delete modal
-  const deleteModal = useModal();
-
-  // Initialize formik
   const formik = useFormik({
-    initialValues: initialFormValues,
-    validationSchema: validationSchema,
+    initialValues: seededValues,
+    enableReinitialize: true,
+    validationSchema,
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: async (vals, { setSubmitting, resetForm, setFieldError }) => {
-      try {
-        if (isEditMode && userId) {
-          // Update existing user
-          const userData = {
-            name: vals.name,
-            username: vals.username,
-            email: vals.email,
-            phone: vals.phone,
-            company: {
-              name: vals.companyName,
-            },
-          };
-
-          await updateUserMutation.mutateAsync({ id: userId, userData });
-
-          // Reset form state
-          setOriginalData({
-            name: vals.name,
-            username: vals.username,
-            email: vals.email,
-            phone: vals.phone,
-            companyName: vals.companyName,
-          });
-        } else {
-          // Create new user
-          const newUserData = createUserObject(generateRandomId(), vals);
-
-          await createUserMutation.mutateAsync(newUserData);
-          resetForm();
-        }
-      } catch (err) {
-        // Error handling is done in mutation hooks
-        console.error("Form submission error:", err);
-      } finally {
-        setSubmitting(false);
+    onSubmit: async (vals, helpers) => {
+      if (isEditMode) {
+        await updateUserMutation.mutateAsync({
+          id: userId,
+          userData: toUpdatePayload(vals),
+        });
+      } else {
+        const newUserData = createUserObject(vals, newUserId);
+        await createUserMutation.mutateAsync(newUserData);
+        helpers.resetForm();
       }
     },
   });
 
-  // Form validation logic
-  const isFormValid =
-    formik.isValid &&
-    formik.values.name &&
-    formik.values.username &&
-    formik.values.email &&
-    formik.values.phone &&
-    formik.values.companyName;
+  const isPendingAny =
+    formik.isSubmitting ||
+    createUserMutation.isPending ||
+    updateUserMutation.isPending;
 
-  const readyToSubmit =
-    isFormValid &&
-    !formik.isSubmitting &&
-    !createUserMutation.isPending &&
-    !updateUserMutation.isPending;
+  const readyToSubmit = formik.isValid && formik.dirty && !isPendingAny;
 
-  // Check if form should be populated from query params or initialData prop
-  useEffect(() => {
-    // First check if initialData prop is provided (for direct user editing)
-    if (initialData) {
-      const userData = {
-        name: initialData.name || "",
-        username: initialData.username || "",
-        email: initialData.email || "",
-        phone: initialData.phone || "",
-        companyName: initialData.company?.name || "",
-      };
+  const handleDeleteClick = () => deleteModal.openModal();
 
-      // Set form values from initialData
-      formik.setValues(userData);
-      setOriginalData(userData);
-      setUserId(initialData.id);
-      setIsEditMode(true);
-      return;
-    }
-
-    // Fallback to query params if no initialData
-    const id = searchParams.get("id");
-    const name = searchParams.get("name");
-    const username = searchParams.get("username");
-    const email = searchParams.get("email");
-    const phone = searchParams.get("phone");
-    const companyName = searchParams.get("companyName");
-
-    if (id && name && username && email && phone && companyName) {
-      const queryData = {
-        name,
-        username,
-        email,
-        phone,
-        companyName,
-      };
-
-      // Set form values from query params
-      formik.setValues(queryData);
-      setOriginalData(queryData);
-      setUserId(parseInt(id));
-      setIsEditMode(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, initialData]);
-
-  // Force validation when form values change
-  useEffect(() => {
-    if (formik.values.name || formik.values.username || formik.values.email) {
-      formik.validateForm();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    formik.values.name,
-    formik.values.username,
-    formik.values.email,
-    formik.values.phone,
-    formik.values.companyName,
-  ]);
-
-  // Check if current form data is different from original
-  const hasChanges = () => {
-    if (!originalData) return true;
-
-    return (
-      formik.values.name !== originalData.name ||
-      formik.values.username !== originalData.username ||
-      formik.values.email !== originalData.email ||
-      formik.values.phone !== originalData.phone ||
-      formik.values.companyName !== originalData.companyName
-    );
-  };
-
-  // Handle delete button click
-  const handleDeleteClick = () => {
-    deleteModal.openModal();
-  };
-
-  // Handle delete confirmation
   const handleDeleteConfirm = async () => {
-    if (userId) {
-      try {
-        await deleteUserMutation.mutateAsync(userId);
-        deleteModal.closeModal();
-      } catch (error) {
-        // Error handling is done in mutation hook
-        console.error("Delete error:", error);
-      }
-    }
+    if (!userId) return;
+    await deleteUserMutation.mutateAsync(userId);
+    deleteModal.closeModal();
   };
 
-  // Get current user data for delete modal
-  const getCurrentUser = () => {
-    return {
+  const currentUserForModal = useMemo(
+    () => ({
       id: userId,
       name: formik.values.name,
       username: formik.values.username,
       email: formik.values.email,
-    };
-  };
+    }),
+    [userId, formik.values.name, formik.values.username, formik.values.email]
+  );
 
   return (
     <FormWrapper
@@ -267,8 +170,23 @@ export const NewUserForm = ({ initialData = null }) => {
           : "Yeni kullanıcı oluşturmak için formu doldurun"
       }
     >
+      {isEditMode && (
+        <Input
+          id={"id"}
+          name="id"
+          testId="id-input"
+          label="Kullanıcı ID"
+          placeholder="Kullanıcı ID"
+          type="text"
+          disabled
+          value={formik.values.id}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+      )}
+
       <Input
-        id={nameId}
+        id={"name"}
         name="name"
         testId="name-input"
         label="Ad Soyad"
@@ -279,13 +197,11 @@ export const NewUserForm = ({ initialData = null }) => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         tooltip="Ad Soyad en az 3 karakter olmak zorundadır"
-        error={
-          formik.touched.name && formik.errors.name ? formik.errors.name : null
-        }
+        error={formik.touched.name ? formik.errors.name : null}
       />
 
       <Input
-        id={usernameId}
+        id={"username"}
         name="username"
         testId="username-input"
         label="Kullanıcı Adı"
@@ -296,15 +212,11 @@ export const NewUserForm = ({ initialData = null }) => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         tooltip="Kullanıcı adı en az 3 karakter olmak zorundadır"
-        error={
-          formik.touched.username && formik.errors.username
-            ? formik.errors.username
-            : null
-        }
+        error={formik.touched.username ? formik.errors.username : null}
       />
 
       <Input
-        id={emailId}
+        id={"email"}
         name="email"
         testId="email-input"
         label="E-posta"
@@ -314,15 +226,11 @@ export const NewUserForm = ({ initialData = null }) => {
         value={formik.values.email}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        error={
-          formik.touched.email && formik.errors.email
-            ? formik.errors.email
-            : null
-        }
+        error={formik.touched.email ? formik.errors.email : null}
       />
 
       <Input
-        id={phoneId}
+        id={"phone"}
         name="phone"
         testId="phone-input"
         label="Telefon"
@@ -332,15 +240,11 @@ export const NewUserForm = ({ initialData = null }) => {
         value={formik.values.phone}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        error={
-          formik.touched.phone && formik.errors.phone
-            ? formik.errors.phone
-            : null
-        }
+        error={formik.touched.phone ? formik.errors.phone : null}
       />
 
       <Input
-        id={companyNameId}
+        id={"companyName"}
         name="companyName"
         testId="company-name-input"
         label="Şirket Adı"
@@ -350,11 +254,7 @@ export const NewUserForm = ({ initialData = null }) => {
         value={formik.values.companyName}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        error={
-          formik.touched.companyName && formik.errors.companyName
-            ? formik.errors.companyName
-            : null
-        }
+        error={formik.touched.companyName ? formik.errors.companyName : null}
       />
 
       <div className={styles.buttonContainer}>
@@ -376,12 +276,8 @@ export const NewUserForm = ({ initialData = null }) => {
               id="user-form-submit"
               testId="submit-button"
               text="Kullanıcıyı Güncelle"
-              loading={
-                formik.isSubmitting ||
-                createUserMutation.isPending ||
-                updateUserMutation.isPending
-              }
-              disabled={!readyToSubmit || !hasChanges()}
+              loading={isPendingAny}
+              disabled={!readyToSubmit}
               variant="primary"
               name="user-form-submit"
               onClick={formik.handleSubmit}
@@ -394,11 +290,7 @@ export const NewUserForm = ({ initialData = null }) => {
             id="user-form-submit"
             testId="submit-button"
             text="Kullanıcı Oluştur"
-            loading={
-              formik.isSubmitting ||
-              createUserMutation.isPending ||
-              updateUserMutation.isPending
-            }
+            loading={isPendingAny}
             disabled={!readyToSubmit}
             variant="primary"
             name="user-form-submit"
@@ -408,13 +300,12 @@ export const NewUserForm = ({ initialData = null }) => {
         )}
       </div>
 
-      {/* Delete Confirmation Modal */}
       {isEditMode && (
         <UserDeleteModal
           isOpen={deleteModal.isOpen}
           onClose={deleteModal.closeModal}
           onConfirm={handleDeleteConfirm}
-          user={getCurrentUser()}
+          user={currentUserForModal}
           loading={deleteUserMutation.isPending}
         />
       )}
@@ -422,5 +313,5 @@ export const NewUserForm = ({ initialData = null }) => {
   );
 };
 
-// Default export
+// Export
 export default NewUserForm;

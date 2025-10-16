@@ -1,9 +1,14 @@
+// Component: FormItemWrapper
+
+// Imports
 "use client";
 import cn from "classnames";
 import { TooltipIcon } from "../../../common/ToolTip";
 import styles from "./FormItemWrapper.module.scss";
 
+// FormItemWrapper Component
 export const FormItemWrapper = (props) => {
+  // Props
   const {
     children,
     className,
@@ -15,6 +20,11 @@ export const FormItemWrapper = (props) => {
     id,
     tooltip,
   } = props;
+  // States
+  // Hooks
+  // Effects
+  // Other functions
+  // Render
   return (
     <div
       className={cn(
@@ -43,4 +53,5 @@ export const FormItemWrapper = (props) => {
   );
 };
 
+// Export
 export default FormItemWrapper;

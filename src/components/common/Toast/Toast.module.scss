@@ -1,22 +1,23 @@
 // Toast Styles
-@import "../../../styles/variables.scss";
+
+// Imports
+@use "../../../styles/variables.scss" as *;
 
 .toast {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-  min-width: 300px;
-  max-width: 400px;
-  font-size: 14px;
+  gap: .75rem;
+  padding: 1rem 1.25rem;
+  border-radius: .5rem;
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(.625rem);
+  min-width: 18.75rem;
+  max-width: 25rem;
+  font-size: .875rem;
   font-weight: 500;
   pointer-events: auto;
   cursor: pointer;
 
-  // Animation states
   opacity: 0;
   transform: translateX(100%);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -31,7 +32,6 @@
     transform: translateX(100%);
   }
 
-  // Success variant
   &.success {
     background: linear-gradient(
       135deg,
@@ -47,7 +47,6 @@
     }
   }
 
-  // Danger variant
   &.danger {
     background: linear-gradient(
       135deg,
@@ -63,7 +62,6 @@
     }
   }
 
-  // Hover effect
   &:hover {
     transform: translateX(-5px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
@@ -74,10 +72,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
-  font-size: 12px;
+  font-size: .75rem;
   font-weight: bold;
   flex-shrink: 0;
 }
@@ -91,13 +89,13 @@
 .closeButton {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: currentColor;
   opacity: 0.7;
   cursor: pointer;
   padding: 0;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +114,6 @@
   }
 }
 
-// Responsive design
 @media (max-width: 768px) {
   .toast {
     min-width: auto;
@@ -124,7 +121,6 @@
   }
 }
 
-// Dark mode support
 @media (prefers-color-scheme: dark) {
   .toast {
     &.success {

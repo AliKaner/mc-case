@@ -11,13 +11,12 @@ export const DisplayTypeSwitch = ({ value, onChange, testId }) => {
   // States
   // Hooks
   // Effects
-
+  // Other functions
   const handleToggle = (newValue) => {
     if (onChange && newValue !== value) {
       onChange(newValue);
     }
   };
-  // Other functions
   // Render
   return (
     <div className={styles.container} data-testid={testId}>

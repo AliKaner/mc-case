@@ -1,0 +1,55 @@
+{
+  // ESLint ayarları - kullanılmayan kod temizleme için
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+
+  // Dosya kaydedildiğinde otomatik ESLint düzeltmesi
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // Kullanılmayan import'ları otomatik kaldır
+  "typescript.preferences.includePackageJsonAutoImports": "off",
+  "javascript.preferences.includePackageJsonAutoImports": "off",
+  "typescript.suggest.autoImports": false,
+  "javascript.suggest.autoImports": false,
+
+  // Dosya kaydedildiğinde kullanılmayan import'ları organize et
+  "source.organizeImports": "explicit",
+
+  // ESLint problemlerini editörde göster
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // Console.log'ları vurgula
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "support.function.console",
+        "settings": {
+          "foreground": "#FF6B6B",
+          "fontStyle": "bold"
+        }
+      }
+    ]
+  },
+
+  // Kullanılmayan değişkenleri vurgula
+  "editor.semanticHighlighting.enabled": true,
+
+  // Otomatik kaydetme (ESLint düzeltmelerini tetiklemek için)
+  "files.autoSave": "onFocusChange",
+
+  // Dosya formatlaması
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // ESLint çıktısını göster
+  "eslint.debug": false,
+  "eslint.trace.server": "off"
+}

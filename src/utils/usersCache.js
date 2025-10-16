@@ -58,7 +58,6 @@ export const saveUsersToCache = (usersData) => {
 
     return true;
   } catch (error) {
-    console.error("Error saving users to cache:", error);
     return false;
   }
 };
@@ -85,7 +84,6 @@ export const getUsersFromCache = () => {
 
     return cachedData;
   } catch (error) {
-    console.error("Error getting users from cache:", error);
     return null;
   }
 };
@@ -98,9 +96,7 @@ export const clearUsersCache = () => {
     removeFromStorage(STORAGE_KEYS.USERS_DATA);
     removeFromStorage(STORAGE_KEYS.USERS_CACHE_TIMESTAMP);
     removeFromStorage(STORAGE_KEYS.DELETED_USERS);
-  } catch (error) {
-    console.error("Error clearing users cache:", error);
-  }
+  } catch (error) {}
 };
 
 /**
@@ -116,15 +112,9 @@ export const getDeletedUsers = () => {
  * @returns {boolean} Success status
  */
 export const clearDeletedUsers = () => {
-  try {
-    removeFromStorage(STORAGE_KEYS.DELETED_USERS);
-    // Force refresh cache to restore Turkish users
-    clearUsersCache();
-    return true;
-  } catch (error) {
-    console.error("Error clearing deleted users:", error);
-    return false;
-  }
+  removeFromStorage(STORAGE_KEYS.DELETED_USERS);
+  clearUsersCache();
+  return true;
 };
 
 /**
@@ -141,7 +131,6 @@ export const sortUsers = (users, sortField = "name", order = "asc") => {
     let aValue = a[sortField];
     let bValue = b[sortField];
 
-    // Handle different data types
     if (typeof aValue === "string") {
       aValue = aValue.toLowerCase();
       bValue = bValue.toLowerCase();
@@ -160,12 +149,10 @@ export const sortUsers = (users, sortField = "name", order = "asc") => {
       }
     }
 
-    // String comparison
     if (order === "asc") {
       return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-    } else {
-      return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
     }
+    return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
   });
 };
 
@@ -232,27 +219,21 @@ export const paginateUsers = (users, page = 1, limit = 10) => {
  */
 export const deleteUserFromCache = (userId) => {
   try {
-    // Add user to deleted users list
     const deletedUsers = getFromStorage(STORAGE_KEYS.DELETED_USERS, []);
     if (!deletedUsers.includes(userId)) {
       deletedUsers.push(userId);
       setToStorage(STORAGE_KEYS.DELETED_USERS, deletedUsers);
     }
-
     const cachedData = getUsersFromCache();
     if (!cachedData || !cachedData.users) {
-      return true; // Still return true as we've marked it as deleted
+      return true;
     }
-
-    // Filter out the user to delete (handle both string and number IDs)
     const updatedUsers = cachedData.users.filter(
       (user) =>
         user.id != userId &&
         user.id !== String(userId) &&
         user.id !== parseInt(userId)
     );
-
-    // Update the cache with the new users array
     const updatedCacheData = {
       ...cachedData,
       users: updatedUsers,
@@ -261,7 +242,6 @@ export const deleteUserFromCache = (userId) => {
 
     return saveUsersToCache(updatedCacheData);
   } catch (error) {
-    console.error("Error deleting user from cache:", error);
     return false;
   }
 };
@@ -282,15 +262,9 @@ export const processUsersData = (users, options = {}) => {
   } = options;
 
   let processedUsers = [...users];
-
-  // Filter users
   if (search.trim()) {
     processedUsers = filterUsers(processedUsers, search);
   }
-
-  // Sort users
   processedUsers = sortUsers(processedUsers, sort, order);
-
-  // Paginate users
   return paginateUsers(processedUsers, page, limit);
 };

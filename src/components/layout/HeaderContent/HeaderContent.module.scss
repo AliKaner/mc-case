@@ -1,9 +1,11 @@
+// HeaderContent module styles
+
 .headerContent {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  min-height: 60px; // Fixed minimum height to prevent vertical shifting
+  min-height: 3.75rem; 
 }
 
 .logoContainer {
@@ -12,8 +14,8 @@
   cursor: pointer;
   transition: opacity 0.2s ease;
   flex-shrink: 0;
-  width: 180px;
-  height: 60px;
+  width: 11.25rem;
+  height: 3.75rem;
 
   &:hover {
     opacity: 0.8;
@@ -23,30 +25,29 @@
 .buttonContainer {
   display: flex;
   align-items: center;
-  flex-shrink: 0; // Prevent button container from shrinking
-  min-width: 160px; // Fixed minimum width to accommodate both button texts
-  justify-content: flex-end; // Align button to the right
+  flex-shrink: 0; 
+  min-width: 10rem; 
+  justify-content: flex-end; 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .headerContent {
-    flex-direction: row; // Keep logo and button side by side on mobile
+    flex-direction: row; 
     justify-content: space-between;
     gap: 1rem;
   }
 
   .buttonContainer {
-    width: auto; // Don't take full width on mobile
+    width: auto; 
     justify-content: flex-end;
     min-width: auto;
   }
 
   .headerButton {
-    text-indent: -9999px; // Hide original text
+    text-indent: -624.9375rem; 
     overflow: hidden;
     position: relative;
 
-    // Show only + or ← symbol
     &::before {
       content: "+";
       position: absolute;
@@ -54,32 +55,31 @@
       top: 50%;
       transform: translate(-50%, -50%);
       text-indent: 0;
-      font-size: 20px;
+      font-size: 1.25rem;
       font-weight: bold;
     }
 
-    // For + button (add user) - make it square and bigger
+    
     &[aria-label="Yeni Kullanıcı Ekle"] {
-      width: 44px;
-      height: 44px;
-      min-width: 44px;
+      width: 2.75rem;
+      height: 2.75rem;
+      min-width: 2.75rem;
       padding: 0;
-      border-radius: 8px;
+      border-radius: .5rem;
 
       &::before {
-        font-size: 24px;
+        font-size: 1.5rem;
         font-weight: bold;
       }
     }
 
-    // For back button (when on create page) - keep rectangular
     &[aria-label="Ana Sayfaya Dön"] {
-      min-width: 40px;
-      padding: 8px 12px;
+      min-width: 2.5rem;
+      padding: .5rem .75rem;
 
       &::before {
         content: "←";
-        font-size: 18px;
+        font-size: 1.125rem;
       }
     }
   }

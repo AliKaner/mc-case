@@ -24,7 +24,6 @@ export const UserCard = (props) => {
   const deleteModal = useModal();
   const { addToast } = useToastContext();
 
-  // Delete user mutation
   const deleteUserMutation = useMutation({
     mutationFn: userMutations.deleteUser,
     onSuccess: () => {
@@ -35,7 +34,6 @@ export const UserCard = (props) => {
         DEFAULT_TOAST_DURATION
       );
 
-      // Invalidate and refetch users query to update the list
       queryClient.invalidateQueries(["users"]);
 
       if (onUserDeleted) {
@@ -53,7 +51,7 @@ export const UserCard = (props) => {
   });
 
   // Other functions
-  const handleCardClick = (e) => {
+  const handleCardClick = () => {
     const userDetailRoute = ROUTES.USERS.GET_USER_BY_ID.replace(":id", user.id);
     router.push(userDetailRoute);
   };
@@ -127,3 +125,6 @@ export const UserCard = (props) => {
     </>
   );
 };
+
+// Export
+export default UserCard;

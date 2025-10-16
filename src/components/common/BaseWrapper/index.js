@@ -1,5 +1,9 @@
+// Component: BaseWrapper
+
+// Imports
 import styles from "./BaseWrapper.module.scss";
 
+// BaseWrapper component
 const BaseWrapper = ({
   children,
   className = "",
@@ -11,6 +15,10 @@ const BaseWrapper = ({
   style = {},
   ...props
 }) => {
+  //States
+  //Effects
+  //Hooks
+  //Other functions
   const wrapperClasses = [
     styles.baseWrapper,
     styles[`direction-${direction}`],
@@ -26,7 +34,7 @@ const BaseWrapper = ({
     gap,
     ...style,
   };
-
+  //Render
   return (
     <div className={wrapperClasses} style={wrapperStyle} {...props}>
       {children}
@@ -34,4 +42,5 @@ const BaseWrapper = ({
   );
 };
 
+// Export
 export default BaseWrapper;

@@ -5,6 +5,7 @@ import * as Yup from "yup";
 
 // Initial form values
 export const initialFormValues = {
+  id: "",
   name: "",
   username: "",
   email: "",
@@ -46,7 +47,7 @@ export const validationSchema = Yup.object({
 });
 
 // User object structure template
-export const createUserObject = (id, formValues) => ({
+export const createUserObject = (formValues, id) => ({
   id,
   name: formValues.name,
   username: formValues.username,

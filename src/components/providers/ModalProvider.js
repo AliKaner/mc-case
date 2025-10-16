@@ -7,11 +7,15 @@ import { createContext, useContext, useState, useCallback } from "react";
 // Context
 const ModalContext = createContext();
 
-// Hook to use modal context
 export const useModalContext = () => {
   const context = useContext(ModalContext);
   if (!context) {
-    throw new Error("useModalContext must be used within a ModalProvider");
+    return {
+      modals: [],
+      openModal: () => {},
+      closeModal: () => {},
+      closeAllModals: () => {},
+    };
   }
   return context;
 };
@@ -44,6 +48,7 @@ export const ModalProvider = ({ children }) => {
     closeAllModals,
   };
 
+  // Render
   return (
     <ModalContext.Provider value={value}>
       {children}
@@ -62,4 +67,5 @@ export const ModalProvider = ({ children }) => {
   );
 };
 
+// Export
 export default ModalProvider;

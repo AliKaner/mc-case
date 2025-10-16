@@ -1,13 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/common/Button";
+import ROUTES from "@/constants/routes";
 import styles from "./not-found.module.scss";
 
 export default function NotFound() {
   const router = useRouter();
 
   const handleGoHome = () => {
-    router.push(routes);
+    router.push(ROUTES.HOME);
   };
 
   return (

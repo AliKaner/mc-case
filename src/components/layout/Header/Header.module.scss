@@ -1,10 +1,13 @@
-@import "../../../styles/variables.scss";
+// Header module styles
+
+// Imports
+@use "../../../styles/variables.scss" as *;
 
 .header {
   background-color: $color-primary-1000;
   color: white;
   padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +15,7 @@
   z-index: 100;
 
   .container {
-    max-width: 1200px;
+    max-width: 75rem;
     margin: 0 auto;
     padding: 0 1rem;
     display: flex;
@@ -21,7 +24,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .header {
     .container {
       padding: 0 0.5rem;

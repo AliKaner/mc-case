@@ -1,23 +1,25 @@
-@import "../../../styles/variables.scss";
+// Body module styles
+
+@use "../../../styles/variables.scss" as *;
 
 .body {
   background-color: $color-primary-100;
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0; /* Allow flex item to shrink */
-  overflow-y: auto; /* Only body content scrolls */
+  min-height: 0; 
+  overflow-y: auto; 
   padding: 0;
   padding-top: calc(
-    2rem + 92px
-  ); // 2rem base padding + header height (60px + 2rem padding)
+    2rem + 5.75rem
+  );
 
   .container {
-    max-width: 1200px;
+    max-width: 75rem;
     margin: 0 auto;
-    padding: 2rem 1rem; /* Add vertical padding to content */
+    padding: 2rem 1rem; 
     width: 100%;
-    flex: 1; /* Take remaining space, pushing footer to bottom */
+    flex: 1; 
   }
 }
 
@@ -46,7 +48,7 @@
         $color-primary-200 1px,
         transparent 1px
       );
-    background-size: 50px 50px;
+    background-size: 3.125rem 3.125rem;
     opacity: 0.3;
     pointer-events: none;
   }
@@ -57,15 +59,15 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .body {
     padding: 0;
     padding-top: calc(
-      1rem + 92px
-    ); // 1rem base padding + header height for mobile
+      1rem + 5.75rem
+    ); 
 
     .container {
-      padding: 1rem 0.5rem; /* Add vertical padding for mobile */
+      padding: 1rem 0.5rem;
     }
   }
 }

@@ -2,20 +2,20 @@
 
 .container {
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: .75rem 1rem;
+  border: .0625rem solid #d1d5db;
+  border-radius: .5rem;
+  font-size: .875rem;
   line-height: 1.5;
   background-color: white;
   transition: all 0.2s ease;
-  height: 44px;
+  height: 2.75rem;
   box-sizing: border-box;
 
   &:focus {
     outline: none;
     border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 .1875rem rgba(59, 130, 246, 0.1);
   }
 
   &:hover:not(:disabled) {
@@ -43,21 +43,21 @@
 
   // Sizes
   &.small {
-    padding: 8px 12px;
-    font-size: 12px;
-    height: 36px;
+    padding: .5rem .75rem;
+    font-size: .75rem;
+    height: 2.25rem;
   }
 
   &.medium {
-    padding: 12px 16px;
-    font-size: 14px;
-    height: 44px;
+    padding: .75rem 1rem;
+    font-size: .875rem;
+    height: 2.75rem;
   }
 
   &.large {
-    padding: 16px 20px;
-    font-size: 16px;
-    height: 52px;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    height: 3.25rem;
   }
 
   // States

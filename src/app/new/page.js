@@ -3,11 +3,12 @@
 // Imports
 import { Suspense } from "react";
 import NewUserForm from "@/components/forms/NewUserForm";
+import Spinner from "@/components/common/Spinner";
 
 // New Page component
 export const NewPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spinner />}>
       <NewUserForm />
     </Suspense>
   );

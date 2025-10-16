@@ -9,22 +9,89 @@
   align-items: center;
 }
 
-// Spinner
+// Base spinner styles
 .spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid $color-primary;
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
   border-radius: 50%;
+  border-style: solid;
   animation: spin 1s linear infinite;
+  position: relative;
+
+  // Create a gradient effect
+  &::before {
+    content: "";
+    position: absolute;
+    top: -0.125rem;
+    left: -0.125rem;
+    right: -0.125rem;
+    bottom: -0.125rem;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      $color-secondary 0deg,
+      $color-secondary-400 90deg,
+      transparent 180deg,
+      transparent 360deg
+    );
+    z-index: -1;
+    animation: spin 1s linear infinite;
+  }
 }
 
-// Spin animation
+// Size variants
+.sm {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid $color-primary-200;
+  border-top-color: $color-secondary;
+
+  &::before {
+    border-width: 0.125rem;
+  }
+}
+
+.base {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid $color-primary-200;
+  border-top-color: $color-secondary;
+
+  &::before {
+    border-width: 0.1875rem;
+  }
+}
+
+.lg {
+  width: 8rem;
+  height: 8rem;
+  border: 0.5rem solid $color-primary-200;
+  border-top-color: $color-secondary;
+
+  &::before {
+    border-width: 0.5rem;
+  }
+}
+
+// Enhanced spin animation
 @keyframes spin {
-  to {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
     transform: rotate(360deg);
+  }
+}
+
+// Pulse animation for container
+.container {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
   }
 }

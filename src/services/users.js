@@ -4,7 +4,6 @@ import {
   getUsersFromCache,
   saveUsersToCache,
   processUsersData,
-  clearUsersCache,
   deleteUserFromCache,
 } from "@/utils/usersCache";
 import { ADDITIONAL_TURKISH_USERS } from "@/constants/users";
@@ -26,13 +25,9 @@ export const getUsers = async (
   order = "asc"
 ) => {
   try {
-    // Check if we have cached data
     const cachedData = getUsersFromCache();
 
     if (cachedData && cachedData.users) {
-      console.log("Using cached users data");
-
-      // Process cached data with current parameters
       return processUsersData(cachedData.users, {
         search,
         sort,
@@ -41,10 +36,6 @@ export const getUsers = async (
         limit,
       });
     }
-
-    console.log("Fetching fresh users data from API");
-
-    // Make API request (without pagination params since we'll handle locally)
     const response = await fetch(API_ENDPOINTS.USERS.GET_USERS);
 
     if (!response.ok) {
@@ -53,17 +44,12 @@ export const getUsers = async (
 
     const data = await response.json();
     const allUsers = data.users || data || [];
-
-    // Save to cache (Turkish users will be merged automatically in saveUsersToCache)
     saveUsersToCache({ users: allUsers });
-
-    // Get the merged data from cache (which now includes Turkish users)
     const cachedDataWithTurkishUsers = getUsersFromCache();
     const mergedUsers = cachedDataWithTurkishUsers
       ? cachedDataWithTurkishUsers.users
       : allUsers;
 
-    // Process and return data with current parameters
     return processUsersData(mergedUsers, {
       search,
       sort,
@@ -72,12 +58,8 @@ export const getUsers = async (
       limit,
     });
   } catch (error) {
-    console.error("Error fetching users:", error);
-
-    // Try to return cached data as fallback
     const cachedData = getUsersFromCache();
     if (cachedData && cachedData.users) {
-      console.log("Using cached data as fallback");
       return processUsersData(cachedData.users, {
         search,
         sort,
@@ -98,29 +80,31 @@ export const getUsers = async (
  */
 export const getUserById = async (id) => {
   try {
-    // First, check if user exists in cached data (which includes Turkish users)
+    const normalizedId = String(id);
+    const numericId = parseInt(id, 10);
     const cachedData = getUsersFromCache();
     if (cachedData && cachedData.users) {
       const cachedUser = cachedData.users.find(
-        (user) => user.id === id || user.id === String(id)
+        (user) =>
+          String(user.id) === normalizedId ||
+          user.id === numericId ||
+          user.id === id
       );
       if (cachedUser) {
-        console.log("Found user in cache:", cachedUser.name);
         return cachedUser;
       }
     }
 
-    // If not in cache, check Turkish users directly
     const turkishUser = ADDITIONAL_TURKISH_USERS.find(
-      (user) => user.id === id || user.id === String(id)
+      (user) =>
+        String(user.id) === normalizedId ||
+        user.id === numericId ||
+        user.id === id
     );
     if (turkishUser) {
-      console.log("Found user in Turkish users:", turkishUser.name);
       return turkishUser;
     }
 
-    // If not found locally, try API
-    console.log("User not found locally, trying API...");
     const response = await fetch(
       API_ENDPOINTS.USERS.GET_USER_BY_ID.replace(":id", id)
     );
@@ -132,7 +116,6 @@ export const getUserById = async (id) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching user:", error);
     throw new Error("Failed to fetch user. Please try again later.");
   }
 };
@@ -143,44 +126,14 @@ export const getUserById = async (id) => {
  * @returns {Promise<Object>} Created user data
  */
 export const createUser = async (userData) => {
-  try {
-    // Directly save to localStorage without API call
-    console.log("Creating user directly in localStorage:", userData);
-
-    // Update cache with new user data
-    const cachedData = getUsersFromCache();
-    if (cachedData && cachedData.users) {
-      const updatedUsers = [...cachedData.users, userData];
-      saveUsersToCache({ users: updatedUsers });
-    } else {
-      // If no cached data exists, create new cache with the user
-      saveUsersToCache({ users: [userData] });
-    }
-
-    // Return the user data as if the creation was successful
-    return userData;
-
-    // Optional: Try API call in background (commented out for direct localStorage approach)
-    /*
-    try {
-      const response = await axios.post(
-        API_ENDPOINTS.USERS.CREATE_USER,
-        userData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("API call successful:", response.data);
-    } catch (apiError) {
-      console.log("API call failed, but user already saved to localStorage:", apiError.message);
-    }
-    */
-  } catch (error) {
-    console.error("Error creating user in localStorage:", error);
-    throw new Error("Failed to create user. Please try again.");
+  const cachedData = getUsersFromCache();
+  if (cachedData && cachedData.users) {
+    const updatedUsers = [...cachedData.users, userData];
+    saveUsersToCache({ users: updatedUsers });
+  } else {
+    saveUsersToCache({ users: [userData] });
   }
+  return userData;
 };
 
 /**
@@ -216,13 +169,7 @@ export const updateUser = async (id, userData) => {
 
     return updatedUser;
   } catch (error) {
-    console.error("Error updating user:", error);
-
-    // If it's a 500 error or any server error, still update localStorage and return success
     if (error.response && error.response.status >= 500) {
-      console.log("Server error (500+), updating localStorage anyway...");
-
-      // Update cache with updated user data
       const cachedData = getUsersFromCache();
       if (cachedData && cachedData.users) {
         const updatedUsers = cachedData.users.map((user) =>
@@ -233,20 +180,16 @@ export const updateUser = async (id, userData) => {
         saveUsersToCache({ users: updatedUsers });
       }
 
-      // Return the updated user data as if the update was successful
       return { ...userData, id };
     }
 
     if (error.response) {
-      // Server responded with error status (non-500 errors)
       throw new Error(
         error.response.data?.message || `Server error: ${error.response.status}`
       );
     } else if (error.request) {
-      // Request was made but no response received
       throw new Error("Network error. Please check your connection.");
     } else {
-      // Something else happened
       throw new Error("Failed to update user. Please try again.");
     }
   }
@@ -268,12 +211,8 @@ export const deleteUser = async (id) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error deleting user:", error);
-
     // If it's a 500 error or any server error, still update localStorage and return success
     if (error.response && error.response.status >= 500) {
-      console.log("Server error (500+), updating localStorage anyway...");
-
       // Update cache by removing deleted user
       deleteUserFromCache(id);
 

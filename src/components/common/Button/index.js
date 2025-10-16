@@ -20,13 +20,9 @@ export const Button = (props) => {
     className,
   } = props;
   // States
-
   // Hooks
-
   // Effects
-
   // Other functions
-
   // Render
   return (
     <button

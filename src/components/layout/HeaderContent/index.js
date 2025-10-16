@@ -1,3 +1,6 @@
+// Component: HeaderContent
+
+// Imports
 "use client";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
@@ -5,9 +8,16 @@ import { Button } from "../../common/Button";
 import ROUTES from "../../../constants/routes";
 import styles from "./HeaderContent.module.scss";
 
-export const HeaderContent = ({ logo }) => {
+// HeaderContent Component
+export const HeaderContent = (props) => {
+  // Props
+  const { logo } = props;
+  // States
+  // Hooks
   const router = useRouter();
   const pathname = usePathname();
+  // Effects
+  // Other functions
 
   const isOnNewPage = pathname === ROUTES.USERS.CREATE_USER;
 
@@ -28,15 +38,23 @@ export const HeaderContent = ({ logo }) => {
     ? "Ana Sayfaya Dön"
     : "Yeni Kullanıcı Ekle";
 
+  // Render
   return (
     <div className={styles.headerContent}>
       <div className={styles.logoContainer} onClick={handleLogoClick}>
         <Image
           src={logo}
-          alt="Mini Tiny City Logo"
+          alt="mc-case-logo"
           width={180}
           height={60}
           priority
+          fetchPriority="high"
+          style={{
+            width: "auto",
+            height: "auto",
+            maxWidth: "100%",
+            maxHeight: "100%",
+          }}
         />
       </div>
       <div className={styles.buttonContainer}>
@@ -54,4 +72,5 @@ export const HeaderContent = ({ logo }) => {
   );
 };
 
+// Export
 export default HeaderContent;

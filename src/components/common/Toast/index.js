@@ -3,6 +3,7 @@
 // Imports
 import React, { useEffect, useState } from "react";
 import styles from "./Toast.module.scss";
+import cn from "classnames";
 
 // Component: Toast
 const Toast = ({
@@ -12,31 +13,32 @@ const Toast = ({
   duration = 3000,
   onRemove,
 }) => {
+  // States
   const [isVisible, setIsVisible] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);
 
+  // Hooks
+  // Effects
   useEffect(() => {
-    // Show toast with animation
     const showTimer = setTimeout(() => {
       setIsVisible(true);
     }, 10);
 
-    // Auto remove toast
     const removeTimer = setTimeout(() => {
       handleRemove();
     }, duration);
-
     return () => {
       clearTimeout(showTimer);
       clearTimeout(removeTimer);
     };
-  }, [duration]);
+  }, []);
 
+  // Other functions
   const handleRemove = () => {
     setIsRemoving(true);
     setTimeout(() => {
       onRemove && onRemove(id);
-    }, 300); // Wait for exit animation
+    }, 300);
   };
 
   const getIcon = () => {
@@ -49,12 +51,15 @@ const Toast = ({
         return "✓";
     }
   };
-
+  // Render
   return (
     <div
-      className={`${styles.toast} ${styles[type]} ${
-        isVisible ? styles.visible : ""
-      } ${isRemoving ? styles.removing : ""}`}
+      className={cn(
+        styles.toast,
+        styles[type],
+        isVisible && styles.visible,
+        isRemoving && styles.removing
+      )}
       onClick={handleRemove}
     >
       <div className={styles.icon}>{getIcon()}</div>
@@ -70,4 +75,5 @@ const Toast = ({
   );
 };
 
+// Export
 export default Toast;

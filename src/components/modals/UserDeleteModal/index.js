@@ -9,7 +9,9 @@ import styles from "./UserDeleteModal.module.scss";
 export const UserDeleteModal = (props) => {
   // Props
   const { isOpen = true, onClose, onConfirm, user, loading = false } = props;
-
+  //States
+  //Hooks
+  //Effects
   // Other functions
   const handleConfirm = () => {
     if (onConfirm) {
@@ -67,5 +69,5 @@ export const UserDeleteModal = (props) => {
   );
 };
 
-// Default export
+// Export
 export default UserDeleteModal;

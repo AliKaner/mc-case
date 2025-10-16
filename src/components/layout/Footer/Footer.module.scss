@@ -1,14 +1,16 @@
-@import "../../../styles/variables.scss";
+// Footer module styles
+
+@use "../../../styles/variables.scss" as *;
 
 .footer {
   background-color: $color-secondary;
   color: white;
   padding: 2rem 0 1rem;
   margin-top: auto; /* Push footer to bottom */
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.1);
 
   .container {
-    max-width: 1200px;
+    max-width: 75rem;
     margin: 0 auto;
     padding: 0 1rem;
     display: flex;
@@ -44,7 +46,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .footer {
     .container {
       padding: 0 0.5rem;

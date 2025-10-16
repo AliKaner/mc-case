@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# User Management Dashboard
 
-## Getting Started
+Bu proje, kullanıcıların listelenmesi, filtrelenmesi ve düzenlenmesini sağlayan bir **Next.js 14+ (App Router)** tabanlı yönetim panelidir.  
+Case projesi kapsamında modern frontend prensipleri (React Query, Debounce, Responsive tasarım, State management) uygulanmıştır.
 
-First, run the development server:
+## Zamanım Olsa Eklemek İsteyeceğim Şeyler
+
+Daha kaliteli, merkezi bir API istek yapısı
+Kendi backend servisimin entegrasyonu
+Çoklu dil desteği (i18n)
+Tema / renk yönetimi sistemi (dark-light mod + renk varyantları)
+Auth ve role-based access control sistemi
+
+**Canlı Proje Linki:** [https://mc-case-um1l.vercel.app/](https://mc-case-um1l.vercel.app/)  
+ **Kişisel Web Sitem:** [https://alikaner.com](https://alikaner.com)
+
+---
+
+## Amaç
+
+- Next.js App Router yapısını etkin şekilde kullanmak
+- API’den alınan kullanıcı verilerini kart ve tablo görünümünde listelemek
+- Debounce’lu arama ile performanslı filtreleme sağlamak
+- Reusable component mimarisi ile sürdürülebilir kod yazmak
+- Responsive bir kullanıcı deneyimi oluşturmak
+
+---
+
+## Kullanılan Teknolojiler
+
+- **Next.js 14 (App Router)** – modern routing yapısı
+- **React Query** – veri yönetimi ve caching
+- **Formik + Yup** – form yönetimi ve doğrulama
+- **SCSS Modules** – component bazlı stillendirme
+- **Custom Hooks (useDebounce, useModal)** – tekrar kullanılabilir mantık
+- **Lucide React** – sade ikon seti
+
+---
+
+## Kurulum
 
 ```bash
+git clone https://github.com/alikaner/frontend-case.git
+cd frontend-case
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ardından tarayıcıdan http://localhost:3000 adresine gidin.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Klasör yapısı
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Klasör yapısı için kendi Medium yazımdan esinlendim.
+**Yazı Linki:** [https://medium.com/@alikaner.dev/organizing-next-js-project-folder-structure-b87f1e10f844](https://medium.com/@alikaner.dev/organizing-next-js-project-folder-structure-b87f1e10f844)
 
-## Learn More
+src/
+┣ app/
+┃ ┣ users/
+┃ ┣ new/
+┃ ┗ layout.tsx
+┣ components/
+┃ ┣ common/
+┃ ┣ forms/
+┃ ┗ modals/
+┣ hooks/
+┣ services/
+┣ constants/
+┣ styles/
+┗ utils/
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Her modül kendi index.tsx ve module.scss dosyalarıyla birlikte gelir. Aynı zamanda da Componentlerin her biri yine kendi Medium yazım olan yapı ile yazılmıştır.
+**Yazı Linki:** [https://medium.com/@alikaner.dev/coding-perfect-component-870d6920ee2b](https://medium.com/@alikaner.dev/coding-perfect-component-870d6920ee2b)

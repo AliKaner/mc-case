@@ -7,8 +7,13 @@ import styles from "./ToastContainer.module.scss";
 
 // Component: ToastContainer
 const ToastContainer = ({ toasts, onRemove }) => {
+  // States
+  // Hooks
+  // Effects
+  // Other functions
   if (!toasts || toasts.length === 0) return null;
 
+  // Render
   return (
     <div className={styles.toastContainer}>
       {toasts.map((toast) => (
@@ -25,4 +30,5 @@ const ToastContainer = ({ toasts, onRemove }) => {
   );
 };
 
+// Export
 export default ToastContainer;

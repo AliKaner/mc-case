@@ -1,34 +1,33 @@
 // Users.module.scss
-@import "../../styles/variables.scss";
+
+// Imports
+@use "../../styles/variables.scss" as *;
 
 .controlsContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .searchContainer {
   flex: 1;
-  min-width: 200px;
+  min-width: 12.5rem;
 }
 
 .filtersContainer {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
   flex-shrink: 0;
 }
 
-// Mobile responsive styles
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .controlsContainer {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-
-    // Remove bottom margins from all child elements in mobile
+    gap: 0.75rem;
     * {
       margin-bottom: 0 !important;
     }
@@ -43,14 +42,13 @@
     width: 100%;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0.5rem;
   }
 }
 
-// Extra small screens
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   .filtersContainer {
     flex-direction: column;
-    gap: 8px;
+    gap: 0.5rem;
   }
 }

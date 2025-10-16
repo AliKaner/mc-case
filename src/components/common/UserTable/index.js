@@ -18,6 +18,7 @@ export const UserTable = ({ users, onUserDeleted }) => {
   // Hooks
   const router = useRouter();
 
+  // Other functions
   const handleRowClick = (user) => {
     const userDetailRoute = ROUTES.USERS.GET_USER_BY_ID.replace(":id", user.id);
     router.push(userDetailRoute);
@@ -29,6 +30,7 @@ export const UserTable = ({ users, onUserDeleted }) => {
     router.push(userDetailRoute);
   };
 
+  // Render
   return (
     <div className={styles.container}>
       <table className={styles.table}>
@@ -65,7 +67,7 @@ const UserTableRow = ({ user, onUserDeleted, onRowClick, onDetailClick }) => {
   const deleteModal = useModal();
   const { addToast } = useToastContext();
 
-  // Delete user mutation
+    // Delete user mutation
   const deleteUserMutation = useMutation({
     mutationFn: userMutations.deleteUser,
     onSuccess: () => {
@@ -76,7 +78,6 @@ const UserTableRow = ({ user, onUserDeleted, onRowClick, onDetailClick }) => {
         DEFAULT_TOAST_DURATION
       );
 
-      // Invalidate and refetch users query to update the list
       queryClient.invalidateQueries(["users"]);
 
       if (onUserDeleted) {
