@@ -86,7 +86,7 @@ Ayrıca component yapısı da kendi Medium yazımda açıkladığım yapıyı ta
 <img width="439" height="235" alt="image" src="https://github.com/user-attachments/assets/75b691a2-3621-46ab-8259-6d6626ef4fad" />
 
 ### WhatsApp Link:
-<img width="445" height="105" alt="image" src="https://github.com/user-attachments/assets/39ceb3bc-da49-4f90-9845-9bcea8d8b923" />
+<img width="776" height="96" alt="image" src="https://github.com/user-attachments/assets/c980cb37-cfae-4e99-a7aa-bb77a5f6a800" />
 
 ## Featurelar
 
