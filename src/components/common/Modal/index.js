@@ -4,6 +4,7 @@
 "use client";
 import { useEffect } from "react";
 import Button from "../Button";
+import Portal from "../Portal";
 import styles from "./Modal.module.scss";
 
 // Modal Component
@@ -76,51 +77,53 @@ export const Modal = (props) => {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={`${styles.modal} ${className}`}>
-        {(title || showCloseButton) && (
-          <div className={`${styles.header} ${styles[`header-${variant}`]}`}>
-            {title && <h2 className={styles.title}>{title}</h2>}
-            {showCloseButton && (
-              <button
-                className={styles.closeButton}
-                onClick={onClose}
-                aria-label="Kapat"
-              >
-                ×
-              </button>
-            )}
-          </div>
-        )}
+    <Portal>
+      <div className={styles.overlay} onClick={handleOverlayClick}>
+        <div className={`${styles.modal} ${className}`}>
+          {(title || showCloseButton) && (
+            <div className={`${styles.header} ${styles[`header-${variant}`]}`}>
+              {title && <h2 className={styles.title}>{title}</h2>}
+              {showCloseButton && (
+                <button
+                  className={styles.closeButton}
+                  onClick={onClose}
+                  aria-label="Kapat"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          )}
 
-        <div className={styles.content}>{children}</div>
+          <div className={styles.content}>{children}</div>
 
-        {(buttons.length > 0 || showDefaultButtons) && (
-          <div className={styles.footer}>
-            {buttons.length > 0 ? (
-              buttons.map((button, index) => (
-                <Button
-                  key={index}
-                  text={button.text}
-                  variant={button.variant || "primary"}
-                  onClick={button.onClick}
-                  disabled={button.disabled}
-                  loading={button.loading}
-                  className={button.className}
-                  testId={button.testId}
-                  ariaLabel={button.ariaLabel}
-                />
-              ))
-            ) : showDefaultButtons ? (
-              <>
-                <Button text="İptal" variant="secondary" onClick={onClose} />
-                <Button text="Tamam" variant="primary" onClick={onClose} />
-              </>
-            ) : null}
-          </div>
-        )}
+          {(buttons.length > 0 || showDefaultButtons) && (
+            <div className={styles.footer}>
+              {buttons.length > 0 ? (
+                buttons.map((button, index) => (
+                  <Button
+                    key={index}
+                    text={button.text}
+                    variant={button.variant || "primary"}
+                    onClick={button.onClick}
+                    disabled={button.disabled}
+                    loading={button.loading}
+                    className={button.className}
+                    testId={button.testId}
+                    ariaLabel={button.ariaLabel}
+                  />
+                ))
+              ) : showDefaultButtons ? (
+                <>
+                  <Button text="İptal" variant="secondary" onClick={onClose} />
+                  <Button text="Tamam" variant="primary" onClick={onClose} />
+                </>
+              ) : null}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </Portal>
   );
 };
 

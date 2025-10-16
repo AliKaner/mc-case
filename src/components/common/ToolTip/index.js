@@ -4,7 +4,7 @@ import cn from "classnames";
 import { getTooltipPosition } from "../../../utils/tooltipPosition";
 import styles from "./ToolTip.module.scss";
 
-const QuestionIcon = () => (
+const QuestionIcon = ({ className }) => (
   <span className={cn(styles.tooltipIcon, className)}>
     <svg
       width="14"
