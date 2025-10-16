@@ -6,10 +6,10 @@ import { Header, Body, LayoutWrapper } from "../components/layout";
 import { HeaderContent } from "../components/layout/HeaderContent";
 
 export const metadata = {
-  title: "Minticity Case - User Management System",
+  title: "Alicity Case - User Management System",
   description:
-    "Modern user management system built with Next.js - Minticity Case by Ali Kaner",
-  keywords: ["user management", "nextjs", "minticity", "case study"],
+    "Modern user management system built with Next.js - Alicity Case by Ali Kaner",
+  keywords: ["user management", "nextjs", "Alicity", "case study"],
   authors: [{ name: "Ali Kaner" }],
   creator: "Ali Kaner",
   publisher: "Ali Kaner",
@@ -44,16 +44,16 @@ export const metadata = {
     type: "website",
     locale: "tr_TR",
     url: "/",
-    title: "Minticity Case - User Management System",
+    title: "Alicity Case - User Management System",
     description:
-      "Modern user management system built with Next.js - Minticity Case by Ali Kaner",
-    siteName: "Minticity Case",
+      "Modern user management system built with Next.js - Alicity Case by Ali Kaner",
+    siteName: "Alicity Case",
     images: [
       {
         url: "https://mc-case-um1l.vercel.app/logo.webp",
         width: 1200,
         height: 630,
-        alt: "Minticity Case Logo",
+        alt: "Alicity Case Logo",
         type: "image/webp",
       },
     ],
@@ -61,11 +61,11 @@ export const metadata = {
 
   twitter: {
     card: "summary_large_image",
-    site: "@minticity",
+    site: "@Alicity",
     creator: "@alikaner",
-    title: "Minticity Case - User Management System",
+    title: "Alicity Case - User Management System",
     description:
-      "Modern user management system built with Next.js - Minticity Case by Ali Kaner",
+      "Modern user management system built with Next.js - Alicity Case by Ali Kaner",
     images: ["https://mc-case-um1l.vercel.app/logo.webp"],
   },
 
@@ -85,7 +85,7 @@ export const metadata = {
     google: process.env.GOOGLE_VERIFICATION_ID,
   },
 
-  applicationName: "Minticity Case",
+  applicationName: "Alicity Case",
   referrer: "origin-when-cross-origin",
   category: "technology",
 

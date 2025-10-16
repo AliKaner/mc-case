@@ -1,5 +1,4 @@
 import API_ENDPOINTS from "@/constants/apis";
-import axios from "axios";
 import {
   getUsersFromCache,
   saveUsersToCache,
@@ -127,26 +126,7 @@ export const getUserById = async (id) => {
  */
 export const createUser = async (userData) => {
   try {
-    // Mock POST request - this won't actually do anything but will simulate the API call
-    const response = await fetch(API_ENDPOINTS.USERS.CREATE_USER, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
-
-    // Log the mock request for debugging purposes
-    console.log("Mock POST request sent to:", API_ENDPOINTS.USERS.CREATE_USER);
-    console.log("Request payload:", userData);
-
-    if (response.ok) {
-      console.log("Mock POST request successful");
-    }
-  } catch (error) {
-    // Ignore any errors from the mock request, we'll still save to cache
-    console.log("Mock POST request failed (expected):", error.message);
-  }
+  } catch (error) {}
 
   // Continue with the original cache logic
   const cachedData = getUsersFromCache();
@@ -167,7 +147,6 @@ export const createUser = async (userData) => {
  */
 export const updateUser = async (id, userData) => {
   try {
-    // Mock PATCH request - this won't actually do anything but will simulate the API call
     const response = await fetch(
       API_ENDPOINTS.USERS.UPDATE_USER.replace(":id", id),
       {
@@ -179,22 +158,10 @@ export const updateUser = async (id, userData) => {
       }
     );
 
-    // Log the mock request for debugging purposes
-    console.log(
-      "Mock PATCH request sent to:",
-      API_ENDPOINTS.USERS.UPDATE_USER.replace(":id", id)
-    );
-    console.log("Request payload:", userData);
-
     if (response.ok) {
-      console.log("Mock PATCH request successful");
     }
-  } catch (error) {
-    // Ignore any errors from the mock request, we'll still update the cache
-    console.log("Mock PATCH request failed (expected):", error.message);
-  }
+  } catch (error) {}
 
-  // Continue with the original cache logic
   const cachedData = getUsersFromCache();
   if (cachedData && cachedData.users) {
     const updatedUsers = cachedData.users.map((user) =>
@@ -236,12 +203,8 @@ export const deleteUser = async (id) => {
     if (response.ok) {
       console.log("Mock DELETE request successful");
     }
-  } catch (error) {
-    // Ignore any errors from the mock request, we'll still update the cache
-    console.log("Mock DELETE request failed (expected):", error.message);
-  }
+  } catch (error) {}
 
-  // Continue with the original cache logic
   deleteUserFromCache(id);
 
   return {
