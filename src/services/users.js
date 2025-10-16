@@ -193,15 +193,7 @@ export const deleteUser = async (id) => {
       }
     );
 
-    // Log the mock request for debugging purposes
-    console.log(
-      "Mock DELETE request sent to:",
-      API_ENDPOINTS.USERS.DELETE_USER.replace(":id", id)
-    );
-    console.log("Deleting user ID:", id);
-
     if (response.ok) {
-      console.log("Mock DELETE request successful");
     }
   } catch (error) {}
 

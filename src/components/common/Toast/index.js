@@ -19,7 +19,7 @@ import cn from "classnames";
  * <Toast id="1" message="Toast message" type="success" duration={3000} onRemove={() => console.log("Toast removed")} />
  */
 const Toast = (props) => {
-  const { id, message, type = "success", duration = 3000, onRemove } = props;
+  const { id, message, type = "success", onRemove } = props;
   // States
   const [isVisible, setIsVisible] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);
@@ -31,12 +31,8 @@ const Toast = (props) => {
       setIsVisible(true);
     }, 10);
 
-    const removeTimer = setTimeout(() => {
-      handleRemove();
-    }, duration);
     return () => {
       clearTimeout(showTimer);
-      clearTimeout(removeTimer);
     };
   }, []);
 

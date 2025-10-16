@@ -24,11 +24,12 @@ export const validationSchema = Yup.object({
     )
     .required("Ad Soyad zorunludur"),
   username: Yup.string()
-    .min(3, "Kullanıcı adı en az 3 karakter olmalıdır")
+    .transform((value) => (value ? value.replace(/\s/g, "") : value))
+    .min(3, "Kullanıcı adı en az 3 karakter olmalıdır (boşluklar sayılmaz)")
     .max(20, "Kullanıcı adı en fazla 20 karakter olmalıdır")
     .matches(
-      /^[a-zA-Z0-9_]+$/,
-      "Kullanıcı adı sadece harf, rakam ve alt çizgi içerebilir"
+      /^[a-zA-Z0-9_.,-]+$/,
+      "Kullanıcı adı sadece harf, rakam ve noktalama işaretleri içerebilir"
     )
     .required("Kullanıcı adı zorunludur"),
   email: Yup.string()
@@ -39,7 +40,9 @@ export const validationSchema = Yup.object({
     )
     .required("E-posta zorunludur"),
   phone: Yup.string()
-    .min(10, "Telefon numarası en az 10 karakter olmalıdır")
+    .matches(/^\d+$/, "Telefon numarası sadece rakam içerebilir")
+    .min(10, "Telefon numarası en az 10 hane olmalıdır")
+    .max(11, "Telefon numarası en fazla 11 hane olabilir")
     .required("Telefon numarası zorunludur"),
   companyName: Yup.string()
     .min(2, "Şirket adı en az 2 karakter olmalıdır")

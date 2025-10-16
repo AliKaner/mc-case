@@ -160,6 +160,20 @@ export const NewUserForm = ({ initialData = null }) => {
     [userId, formik.values.name, formik.values.username, formik.values.email]
   );
 
+  // Custom handler for phone input - only allow digits, max 11 digits, no spaces
+  const handlePhoneChange = (e) => {
+    const value = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
+    if (value.length <= 11) {
+      formik.setFieldValue("phone", value);
+    }
+  };
+
+  // Custom handler for username input - remove spaces
+  const handleUsernameChange = (e) => {
+    const value = e.target.value.replace(/\s/g, "");
+    formik.setFieldValue("username", value);
+  };
+
   return (
     <FormWrapper
       className={styles.container}
@@ -209,9 +223,9 @@ export const NewUserForm = ({ initialData = null }) => {
         type="text"
         required
         value={formik.values.username}
-        onChange={formik.handleChange}
+        onChange={handleUsernameChange}
         onBlur={formik.handleBlur}
-        tooltip="Kullanıcı adı en az 3 karakter olmak zorundadır"
+        tooltip="Kullanıcı adı en az 3 karakter olmak zorundadır (boşluklar sayılmaz)"
         error={formik.touched.username ? formik.errors.username : null}
       />
 
@@ -238,8 +252,10 @@ export const NewUserForm = ({ initialData = null }) => {
         type="tel"
         required
         value={formik.values.phone}
-        onChange={formik.handleChange}
+        onChange={handlePhoneChange}
         onBlur={formik.handleBlur}
+        maxLength={11}
+        tooltip="Telefon numarası sadece rakam içerebilir, en fazla 11 hane"
         error={formik.touched.phone ? formik.errors.phone : null}
       />
 
