@@ -44,8 +44,8 @@ Genel olarak gerçek bir backend yapısı olmadığı için localstorage'a bağl
 ## Kurulum
 
 ```bash
-git clone https://github.com/alikaner/frontend-case.git
-cd frontend-case
+git clone https://github.com/alikaner/mc-case.git
+cd mc-case
 npm install
 npm run dev
 ```
