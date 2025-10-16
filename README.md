@@ -11,6 +11,10 @@ Kendi backend servisimin entegrasyonu
 Tema / renk yönetimi sistemi (dark-light mod + renk varyantları)
 Auth ve role-based access control sistemi
 
+## Yaşadığım Zorluklar
+
+Genel olarak gerçek bir backend yapısı olmadığı için localstorage'a bağlı birazcık daha spagetti bir yapı yazmam gerekti bu da genel olarak eventleri kontrol etme konusunda biraz sorun yarattı ayrıca Uzun zamandır TS kullandığım için JS bir proje yazarken biraz afalladım.
+
 **Canlı Proje Linki:** [https://mc-case-um1l.vercel.app/](https://mc-case-um1l.vercel.app/)  
 **Kişisel Web Sitem:** [https://alikaner.com](https://alikaner.com)
 
@@ -80,6 +84,7 @@ Ayrıca component yapısı da kendi Medium yazımda açıkladığım yapıyı ta
 
 ### Twitter Link:
 <img width="439" height="235" alt="image" src="https://github.com/user-attachments/assets/75b691a2-3621-46ab-8259-6d6626ef4fad" />
+
 ### WhatsApp Link:
 <img width="445" height="105" alt="image" src="https://github.com/user-attachments/assets/39ceb3bc-da49-4f90-9845-9bcea8d8b923" />
 
@@ -98,12 +103,13 @@ Ayrıca component yapısı da kendi Medium yazımda açıkladığım yapıyı ta
 <img width="403" height="643" alt="image" src="https://github.com/user-attachments/assets/e302c05a-82ec-47a9-8a05-b03a26a79de5" />
 <img width="462" height="259" alt="image" src="https://github.com/user-attachments/assets/c7b8df2e-e26f-491d-85e1-909154b58071" />
 <img width="544" height="454" alt="image" src="https://github.com/user-attachments/assets/0fd1f35e-b277-4d7c-9fe2-06782038abb0" />
+
 context: Table yana doğru scroll olabiliyor.
 
 ### Kullanıcı Detayı
 <img width="730" height="761" alt="image" src="https://github.com/user-attachments/assets/5abb3cda-6e8d-4875-a5ad-8da3f398779b" />
 <img width="527" height="744" alt="image" src="https://github.com/user-attachments/assets/ab3317f1-5b70-413b-a1db-f2e14e8a31d6" />
-
+<img width="1016" height="254" alt="image" src="https://github.com/user-attachments/assets/ee346c3b-0070-41a5-819b-769a9e42f26b" />
 
 ### Kullanıcı Ekleme
 <img width="573" height="675" alt="image" src="https://github.com/user-attachments/assets/b80cc80f-d2e3-4db8-8c76-b47480b116f4" />
@@ -121,7 +127,7 @@ context: Table yana doğru scroll olabiliyor.
 ### Kullanıcı Silme
 <img width="486" height="295" alt="image" src="https://github.com/user-attachments/assets/1b28be1b-20ce-4d02-85b7-0683573f5d8f" />
 <img width="955" height="163" alt="image" src="https://github.com/user-attachments/assets/8fbb73c5-3b06-4358-8c04-bcc7aff36002" />
-<img width="1016" height="254" alt="image" src="https://github.com/user-attachments/assets/ee346c3b-0070-41a5-819b-769a9e42f26b" />
+
 
 
 
